@@ -878,11 +878,16 @@
 
       if (!response.ok) {
 
-        throw new Error(
-          "Unable to check your account role."
-        );
+  const errorText = JSON.stringify(profiles);
 
-      }
+  throw new Error(
+    "Role check failed (" +
+    response.status +
+    "): " +
+    errorText
+  );
+
+    }
 
 
       if (!profiles.length) {
