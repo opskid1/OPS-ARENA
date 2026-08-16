@@ -1,7 +1,8 @@
 
 <script>
   const SUPABASE_URL = "https://vzhizpcaqbtkrythrhok.supabase.co";
-  const SUPABASE_KEY = sb_publishable_QzBm8EFI7u0DwHuWIKRO3Q_KOb_U9H0
+  const SUPABASE_KEY = "sb_publishable_QzBm8EFI7u0DwHuWIKRO3Q_KOb_U9H0";
+
   function testConnection() {
     const status = document.getElementById("status");
     status.textContent = "Testing connection...";
@@ -21,6 +22,7 @@
       }
     })
     .catch(error => {
+      console.error(error);
       status.textContent = "❌ Unable to connect.";
     });
   }
