@@ -1211,11 +1211,14 @@ async function addTeam() {
   });
     }
   function openPlayers() {
-  document.getElementById("dashboard").classList.remove("hidden");
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("teamsSection").classList.add("hidden");
+  document.getElementById("playersSection").classList.remove("hidden");
+
   document.getElementById("playersSection").scrollIntoView({
     behavior: "smooth"
   });
-    }
+}
   
 </script>
 </body>
