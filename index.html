@@ -1,29 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
-  const SUPABASE_URL = "https://vzhizpcaqbtkrythrhok.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_QzBm8EFI7u0DwHuWIKRO3Q_KOb_U9H0";
+  <title>OPS ARENA</title>
 
-  function testConnection() {
-    const status = document.getElementById("status");
-    status.textContent = "Testing connection...";
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    fetch(SUPABASE_URL + "/rest/v1/profiles?select=id&limit=1", {
-      method: "GET",
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: #070b12;
+      color: white;
+    }
+
+    header {
+      background: #0d1420;
+      border-bottom: 1px solid #263244;
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #21c45a;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 70px 20px 40px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 9vw, 72px);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #21c45a;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #aeb8c7;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #21c45a;
+      color: #061009;
+    }
+
+    .secondary {
+      background: #182231;
+      color: white;
+      border: 1px solid #344155;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #101824;
+      border: 1px solid #273447;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #9da9ba;
+      line-height: 1.5;
+    }
+
+    .status-box {
+      margin-top: 25px;
+      padding: 20px;
+      text-align: center;
+      background: #101824;
+      border: 1px solid #273447;
+      border-radius: 14px;
+    }
+
+    #status {
+      color: #aeb8c7;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      text-align: center;
+      color: #697587;
+      padding: 40px 20px;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 50px;
       }
-    })
-    .then(response => {
-      if (response.ok) {
-        status.textContent = "✅ OPS Arena database connected!";
-      } else {
-        status.textContent = "❌ Database connection failed.";
+
+      .hero p {
+        font-size: 15px;
       }
-    })
-    .catch(error => {
-      console.error(error);
-      status.textContent = "❌ Unable to connect.";
-    });
-  }
-</script>
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="logo">
+        OPS <span>ARENA</span>
+      </div>
+
+      <div>⚽</div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+
+      <h1>
+        Welcome to <span>OPS ARENA</span>
+      </h1>
+
+      <p>
+        Your football arena for teams, matches,
+        players and competitions.
+      </p>
+
+      <div class="buttons">
+
+        <button
+          class="primary"
+          onclick="testConnection()">
+          Test Database
+        </button>
+
+        <button
+          class="secondary"
+          onclick="enterArena()">
+          Enter Arena
+        </button>
+
+      </div>
+
+    </section>
+
+    <section class="container">
+
+      <div class="grid">
+
+        <div class="card">
+          <h3>⚽ Teams</h3>
+          <p>
+            Create and manage football teams
+            in your arena.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>🏆 Competitions</h3>
+          <p>
+            Organize tournaments and competitions.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>📊 Matches</h3>
+          <p>
+            Keep track of matches and results.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>👥 Players</h3>
+          <p>
+            Manage your football players and teams.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="status-box">
+
+        <div id="status">
+          Database status: Not tested
+        </div>
+
+        <button
+          class="primary"
+          onclick="testConnection()">
+          Check Supabase Connection
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 OPS ARENA
+  </footer>
+
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://vzhizpcaqbtkrythrhok.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_QzBm8EFI7u0DwHuWIKRO3Q_KOb_U9H0";
+
+
+    async function testConnection() {
+
+      const status =
+        document.getElementById("status");
+
+      status.textContent =
+        "Testing connection...";
+
+      try {
+
+        const response = await fetch(
+          SUPABASE_URL +
+          "/rest/v1/profiles?select=id&limit=1",
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+              "Authorization":
+                "Bearer " + SUPABASE_KEY
+            }
+          }
+        );
+
+
+        if (response.ok) {
+
+          status.textContent =
+            "✅ OPS ARENA database connected!";
+
+        } else {
+
+          const errorText =
+            await response.text();
+
+          console.error(errorText);
+
+          status.textContent =
+            "❌ Database error: " +
+            response.status;
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+          "❌ Unable to connect to database.";
+      }
+    }
+
+
+    function enterArena() {
+
+      alert(
+        "Welcome to OPS ARENA! ⚽"
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
