@@ -479,14 +479,13 @@
 </footer>
 
 
-<script>
+  <script>
 
   const SUPABASE_URL =
     "https://vzhizpcaqbtkrythrhok.supabase.co";
 
   const SUPABASE_KEY =
     "sb_publishable_QzBm8EFI7u0DwHuWIKRO3Q_KOb_U9H0";
-
 
   let mode = "signup";
 
@@ -583,7 +582,6 @@
     const box =
       document.getElementById("authMessage");
 
-
     box.textContent = text;
 
     box.style.display = "block";
@@ -616,19 +614,16 @@
         .value
         .trim();
 
-
     const password =
       document
         .getElementById("password")
         .value;
-
 
     const name =
       document
         .getElementById("name")
         .value
         .trim();
-
 
     const button =
       document.getElementById("authButton");
@@ -758,8 +753,8 @@
         }
 
 
-        showDashboard(
-          data.user || {}
+        await checkUserRole(
+          data.user
         );
 
       }
@@ -787,7 +782,110 @@
   }
 
 
-  function showDashboard(user) {
+  async function checkUserRole(user) {
+
+    if (!user || !user.id) {
+
+      showMessage(
+        "Login succeeded, but the user profile could not be identified."
+      );
+
+      return;
+    }
+
+
+    const token =
+      localStorage.getItem(
+        "ops_access_token"
+      );
+
+
+    try {
+
+      const response =
+        await fetch(
+          SUPABASE_URL +
+          "/rest/v1/profiles?id=eq." +
+          encodeURIComponent(user.id) +
+          "&select=id,username,display_name,role",
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+              "Authorization":
+                "Bearer " + token
+            }
+          }
+        );
+
+
+      const profiles =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Unable to check your account role."
+        );
+
+      }
+
+
+      if (!profiles.length) {
+
+        showDashboard(
+          user,
+          "user"
+        );
+
+        return;
+      }
+
+
+      const profile =
+        profiles[0];
+
+
+      const role =
+        profile.role || "user";
+
+
+      const savedUser = {
+        ...user,
+        username: profile.username,
+        display_name: profile.display_name,
+        role: role
+      };
+
+
+      localStorage.setItem(
+        "ops_user",
+        JSON.stringify(savedUser)
+      );
+
+
+      showDashboard(
+        savedUser,
+        role
+      );
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "❌ " + error.message
+      );
+
+    }
+
+  }
+
+
+  function showDashboard(user, role = "user") {
 
     document
       .getElementById("authSection")
@@ -807,11 +905,33 @@
       .remove("hidden");
 
 
-    document
-      .getElementById("userEmail")
-      .textContent =
-      user.email ||
-      "Logged-in user";
+    const emailElement =
+      document.getElementById("userEmail");
+
+
+    if (role === "admin") {
+
+      emailElement.textContent =
+        "👑 Admin • " +
+        (
+          user.email ||
+          user.display_name ||
+          "OPSKID"
+        );
+
+
+      showMessage(
+        "👑 Admin account detected successfully.",
+        true
+      );
+
+    } else {
+
+      emailElement.textContent =
+        user.email ||
+        "Logged-in user";
+
+    }
 
 
     document
@@ -854,7 +974,7 @@
   }
 
 
-  function restoreSession() {
+  async function restoreSession() {
 
     const token =
       localStorage.getItem(
@@ -868,19 +988,24 @@
       );
 
 
-    if (token && saved) {
+    if (!token || !saved) {
+      return;
+    }
 
-      try {
 
-        showDashboard(
-          JSON.parse(saved)
-        );
+    try {
 
-      } catch (error) {
+      const user =
+        JSON.parse(saved);
 
-        logout();
 
-      }
+      await checkUserRole(user);
+
+    } catch (error) {
+
+      console.error(error);
+
+      logout();
 
     }
 
@@ -890,6 +1015,5 @@
   restoreSession();
 
 </script>
-
 </body>
 </html>
