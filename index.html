@@ -470,6 +470,68 @@
   </div>
 
 </section>
+  <!-- PLAYER MANAGEMENT -->
+<section
+  class="container hidden"
+  id="playersSection"
+>
+  <div class="dashboard">
+
+    <div class="welcome">
+      <h2>👥 Player Management</h2>
+
+      <p class="muted">
+        Add and manage players for OPS ARENA.
+      </p>
+    </div>
+
+    <label for="playerName">
+      Player Name
+    </label>
+
+    <input
+      id="playerName"
+      type="text"
+      placeholder="Enter player name"
+    >
+
+    <label for="playerNumber">
+      Player Number
+    </label>
+
+    <input
+      id="playerNumber"
+      type="number"
+      placeholder="Enter player number"
+    >
+
+    <label for="playerTeam">
+      Select Team
+    </label>
+
+    <select id="playerTeam">
+      <option value="">Select a team</option>
+    </select>
+
+    <button
+      class="primary full"
+      onclick="addPlayer()"
+    >
+      ➕ Add Player
+    </button>
+
+    <div
+      class="message"
+      id="playerMessage"
+    ></div>
+
+    <div
+      id="playerList"
+      style="margin-top:20px;"
+    ></div>
+
+  </div>
+</section>
   <!-- DASHBOARD -->
 
   <section
