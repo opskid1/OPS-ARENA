@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>OPS ARENA</title>
+  <meta name="theme-color" content="#070b12">
 
   <style>
     * {
@@ -15,19 +15,19 @@
 
     body {
       font-family: Arial, sans-serif;
-      min-height: 100vh;
       background: #070b12;
-      color: white;
+      color: #fff;
+      min-height: 100vh;
     }
 
     header {
       background: #0d1420;
       border-bottom: 1px solid #263244;
-      padding: 18px 20px;
+      padding: 16px 20px;
     }
 
     .nav {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: auto;
       display: flex;
       justify-content: space-between;
@@ -36,21 +36,27 @@
 
     .logo {
       font-size: 25px;
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .logo span {
       color: #21c45a;
     }
 
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 24px 18px;
+    }
+
     .hero {
       text-align: center;
-      padding: 70px 20px 40px;
+      padding: 55px 10px 35px;
     }
 
     .hero h1 {
-      font-size: clamp(40px, 9vw, 72px);
-      margin-bottom: 20px;
+      font-size: clamp(40px, 9vw, 70px);
+      margin-bottom: 18px;
     }
 
     .hero h1 span {
@@ -58,28 +64,33 @@
     }
 
     .hero p {
+      color: #aeb8c7;
+      line-height: 1.6;
+      font-size: 17px;
       max-width: 650px;
       margin: auto;
-      color: #aeb8c7;
-      font-size: 17px;
-      line-height: 1.6;
     }
 
     .buttons {
-      margin-top: 28px;
       display: flex;
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
+      margin-top: 25px;
     }
 
     button {
-      border: none;
+      border: 0;
       border-radius: 10px;
-      padding: 14px 22px;
+      padding: 13px 20px;
+      font-weight: 700;
       font-size: 15px;
-      font-weight: bold;
       cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .primary {
@@ -89,20 +100,14 @@
 
     .secondary {
       background: #182231;
-      color: white;
+      color: #fff;
       border: 1px solid #344155;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
     }
 
     .card {
@@ -113,7 +118,7 @@
     }
 
     .card h3 {
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .card p {
@@ -121,18 +126,98 @@
       line-height: 1.5;
     }
 
-    .status-box {
-      margin-top: 25px;
-      padding: 20px;
-      text-align: center;
+    .auth,
+    .dashboard {
+      max-width: 520px;
+      margin: 30px auto;
       background: #101824;
       border: 1px solid #273447;
-      border-radius: 14px;
+      border-radius: 18px;
+      padding: 24px;
     }
 
-    #status {
-      color: #aeb8c7;
-      margin-bottom: 15px;
+    .auth h2,
+    .dashboard h2 {
+      margin-bottom: 8px;
+    }
+
+    .muted {
+      color: #9da9ba;
+      line-height: 1.5;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .tabs button {
+      flex: 1;
+    }
+
+    .tabs .active {
+      background: #21c45a;
+      color: #061009;
+    }
+
+    label {
+      display: block;
+      margin: 13px 0 7px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #344155;
+      background: #080e17;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #21c45a;
+    }
+
+    .full {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .message {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 9px;
+      background: #182231;
+      color: #cbd5e1;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .welcome {
+      padding: 25px 0;
+      text-align: center;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .feature {
+      background: #182231;
+      border: 1px solid #344155;
+      border-radius: 12px;
+      padding: 18px;
     }
 
     footer {
@@ -141,13 +226,13 @@
       padding: 40px 20px;
     }
 
-    @media (max-width: 600px) {
-      .hero {
-        padding-top: 50px;
+    @media (max-width: 550px) {
+      .feature-list {
+        grid-template-columns: 1fr;
       }
 
-      .hero p {
-        font-size: 15px;
+      .container {
+        padding: 18px 14px;
       }
     }
   </style>
@@ -155,175 +240,656 @@
 
 <body>
 
-  <header>
-    <div class="nav">
-      <div class="logo">
-        OPS <span>ARENA</span>
+<header>
+  <div class="nav">
+    <div class="logo">
+      OPS <span>ARENA</span>
+    </div>
+
+    <div>⚽</div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+
+    <h1>
+      Welcome to <span>OPS ARENA</span>
+    </h1>
+
+    <p>
+      Your football arena for teams, players,
+      matches and competitions.
+    </p>
+
+    <div class="buttons">
+
+      <button
+        class="primary"
+        onclick="showAuth('signup')">
+        Get Started
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showAuth('login')">
+        Login
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="container" id="features">
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>⚽ Teams</h3>
+        <p>
+          Create and manage football teams.
+        </p>
       </div>
 
-      <div>⚽</div>
+      <div class="card">
+        <h3>🏆 Competitions</h3>
+        <p>
+          Organize tournaments and competitions.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>📊 Matches</h3>
+        <p>
+          Keep track of fixtures and results.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>👥 Players</h3>
+        <p>
+          Manage players and team members.
+        </p>
+      </div>
+
     </div>
-  </header>
 
-  <main>
+  </section>
 
-    <section class="hero">
 
-      <h1>
-        Welcome to <span>OPS ARENA</span>
-      </h1>
+  <!-- LOGIN / REGISTER -->
 
-      <p>
-        Your football arena for teams, matches,
-        players and competitions.
+  <section
+    class="container hidden"
+    id="authSection">
+
+    <div class="auth">
+
+      <h2 id="authTitle">
+        Create your OPS ARENA account
+      </h2>
+
+      <p
+        class="muted"
+        id="authSubtitle">
+        Join the arena and manage your football activities.
       </p>
 
-      <div class="buttons">
+
+      <div class="tabs">
 
         <button
-          class="primary"
-          onclick="testConnection()">
-          Test Database
+          id="signupTab"
+          class="active"
+          onclick="setMode('signup')">
+          Register
         </button>
 
         <button
-          class="secondary"
-          onclick="enterArena()">
-          Enter Arena
-        </button>
-
-      </div>
-
-    </section>
-
-    <section class="container">
-
-      <div class="grid">
-
-        <div class="card">
-          <h3>⚽ Teams</h3>
-          <p>
-            Create and manage football teams
-            in your arena.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>🏆 Competitions</h3>
-          <p>
-            Organize tournaments and competitions.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>📊 Matches</h3>
-          <p>
-            Keep track of matches and results.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>👥 Players</h3>
-          <p>
-            Manage your football players and teams.
-          </p>
-        </div>
-
-      </div>
-
-      <div class="status-box">
-
-        <div id="status">
-          Database status: Not tested
-        </div>
-
-        <button
-          class="primary"
-          onclick="testConnection()">
-          Check Supabase Connection
+          id="loginTab"
+          onclick="setMode('login')">
+          Login
         </button>
 
       </div>
 
-    </section>
 
-  </main>
+      <div id="nameField">
 
-  <footer>
-    © 2026 OPS ARENA
-  </footer>
+        <label for="name">
+          Name
+        </label>
 
+        <input
+          id="name"
+          type="text"
+          placeholder="Your name"
+          autocomplete="name">
 
-  <script>
-
-    const SUPABASE_URL =
-      "https://vzhizpcaqbtkrythrhok.supabase.co";
-
-    const SUPABASE_KEY =
-      "sb_publishable_QzBm8EFI7u0DwHuWIKRO3Q_KOb_U9H0";
+      </div>
 
 
-    async function testConnection() {
+      <label for="email">
+        Email
+      </label>
 
-      const status =
-        document.getElementById("status");
+      <input
+        id="email"
+        type="email"
+        placeholder="you@example.com"
+        autocomplete="email">
 
-      status.textContent =
-        "Testing connection...";
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        id="password"
+        type="password"
+        placeholder="At least 6 characters"
+        autocomplete="new-password">
+
+
+      <button
+        class="primary full"
+        onclick="submitAuth()"
+        id="authButton">
+        Create Account
+      </button>
+
+
+      <button
+        class="secondary full"
+        onclick="hideAuth()">
+        Back
+      </button>
+
+
+      <div
+        class="message"
+        id="authMessage">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DASHBOARD -->
+
+  <section
+    class="container hidden"
+    id="dashboard">
+
+    <div class="dashboard">
+
+      <div class="welcome">
+
+        <h2>
+          Welcome to OPS ARENA 🎉
+        </h2>
+
+        <p
+          class="muted"
+          id="userEmail">
+        </p>
+
+      </div>
+
+
+      <div class="feature-list">
+
+        <div class="feature">
+          ⚽ <strong>Teams</strong>
+        </div>
+
+        <div class="feature">
+          👥 <strong>Players</strong>
+        </div>
+
+        <div class="feature">
+          🏆 <strong>Competitions</strong>
+        </div>
+
+        <div class="feature">
+          📊 <strong>Matches</strong>
+        </div>
+
+      </div>
+
+
+      <button
+        class="secondary full"
+        onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  © 2026 OPS ARENA
+</footer>
+
+
+<script>
+
+  const SUPABASE_URL =
+    "https://vzhizpcaqbtkrythrhok.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_QzBm8EFI7u0DwHuWIKRO3Q_KOb_U9H0";
+
+
+  let mode = "signup";
+
+
+  function showAuth(selectedMode = "signup") {
+
+    setMode(selectedMode);
+
+    document
+      .getElementById("authSection")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("features")
+      .classList.add("hidden");
+
+    document
+      .getElementById("authSection")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+  }
+
+
+  function hideAuth() {
+
+    document
+      .getElementById("authSection")
+      .classList.add("hidden");
+
+    document
+      .getElementById("features")
+      .classList.remove("hidden");
+
+  }
+
+
+  function setMode(newMode) {
+
+    mode = newMode;
+
+    const signup = mode === "signup";
+
+
+    document
+      .getElementById("authTitle")
+      .textContent =
+      signup
+        ? "Create your OPS ARENA account"
+        : "Welcome back";
+
+
+    document
+      .getElementById("authSubtitle")
+      .textContent =
+      signup
+        ? "Join the arena and manage your football activities."
+        : "Login to continue to your arena.";
+
+
+    document
+      .getElementById("nameField")
+      .classList
+      .toggle("hidden", !signup);
+
+
+    document
+      .getElementById("signupTab")
+      .classList
+      .toggle("active", signup);
+
+
+    document
+      .getElementById("loginTab")
+      .classList
+      .toggle("active", !signup);
+
+
+    document
+      .getElementById("authButton")
+      .textContent =
+      signup
+        ? "Create Account"
+        : "Login";
+
+
+    clearMessage();
+
+  }
+
+
+  function showMessage(text, good = false) {
+
+    const box =
+      document.getElementById("authMessage");
+
+
+    box.textContent = text;
+
+    box.style.display = "block";
+
+    box.style.color =
+      good
+        ? "#21c45a"
+        : "#cbd5e1";
+
+  }
+
+
+  function clearMessage() {
+
+    const box =
+      document.getElementById("authMessage");
+
+    box.textContent = "";
+
+    box.style.display = "none";
+
+  }
+
+
+  async function submitAuth() {
+
+    const email =
+      document
+        .getElementById("email")
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById("password")
+        .value;
+
+
+    const name =
+      document
+        .getElementById("name")
+        .value
+        .trim();
+
+
+    const button =
+      document.getElementById("authButton");
+
+
+    if (!email || !password) {
+
+      showMessage(
+        "Please enter your email and password."
+      );
+
+      return;
+    }
+
+
+    if (mode === "signup" && !name) {
+
+      showMessage(
+        "Please enter your name."
+      );
+
+      return;
+    }
+
+
+    if (password.length < 6) {
+
+      showMessage(
+        "Password must be at least 6 characters."
+      );
+
+      return;
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+      mode === "signup"
+        ? "Creating account..."
+        : "Logging in...";
+
+
+    try {
+
+      const url =
+        mode === "signup"
+          ? SUPABASE_URL + "/auth/v1/signup"
+          : SUPABASE_URL +
+            "/auth/v1/token?grant_type=password";
+
+
+      const body =
+        mode === "signup"
+          ? {
+              email: email,
+              password: password,
+              data: {
+                name: name
+              }
+            }
+          : {
+              email: email,
+              password: password
+            };
+
+
+      const response =
+        await fetch(url, {
+
+          method: "POST",
+
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify(body)
+
+        });
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.msg ||
+          data.message ||
+          data.error_description ||
+          "Authentication failed."
+        );
+
+      }
+
+
+      if (
+        mode === "signup" &&
+        !data.access_token
+      ) {
+
+        showMessage(
+          "Account created. Check your email if Supabase requires email confirmation.",
+          true
+        );
+
+      } else {
+
+        if (data.access_token) {
+
+          localStorage.setItem(
+            "ops_access_token",
+            data.access_token
+          );
+
+          localStorage.setItem(
+            "ops_user",
+            JSON.stringify(
+              data.user || {}
+            )
+          );
+
+        }
+
+
+        showDashboard(
+          data.user || {}
+        );
+
+      }
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "❌ " + error.message
+      );
+
+    } finally {
+
+      button.disabled = false;
+
+      button.textContent =
+        mode === "signup"
+          ? "Create Account"
+          : "Login";
+
+    }
+
+  }
+
+
+  function showDashboard(user) {
+
+    document
+      .getElementById("authSection")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("features")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("dashboard")
+      .classList
+      .remove("hidden");
+
+
+    document
+      .getElementById("userEmail")
+      .textContent =
+      user.email ||
+      "Logged-in user";
+
+
+    document
+      .getElementById("dashboard")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+
+  function logout() {
+
+    localStorage.removeItem(
+      "ops_access_token"
+    );
+
+    localStorage.removeItem(
+      "ops_user"
+    );
+
+
+    document
+      .getElementById("dashboard")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("features")
+      .classList
+      .remove("hidden");
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  function restoreSession() {
+
+    const token =
+      localStorage.getItem(
+        "ops_access_token"
+      );
+
+
+    const saved =
+      localStorage.getItem(
+        "ops_user"
+      );
+
+
+    if (token && saved) {
 
       try {
 
-        const response = await fetch(
-          SUPABASE_URL +
-          "/rest/v1/profiles?select=id&limit=1",
-          {
-            method: "GET",
-
-            headers: {
-              "apikey": SUPABASE_KEY,
-              "Authorization":
-                "Bearer " + SUPABASE_KEY
-            }
-          }
+        showDashboard(
+          JSON.parse(saved)
         );
-
-
-        if (response.ok) {
-
-          status.textContent =
-            "✅ OPS ARENA database connected!";
-
-        } else {
-
-          const errorText =
-            await response.text();
-
-          console.error(errorText);
-
-          status.textContent =
-            "❌ Database error: " +
-            response.status;
-        }
 
       } catch (error) {
 
-        console.error(error);
+        logout();
 
-        status.textContent =
-          "❌ Unable to connect to database.";
       }
-    }
-
-
-    function enterArena() {
-
-      alert(
-        "Welcome to OPS ARENA! ⚽"
-      );
 
     }
 
-  </script>
+  }
+
+
+  restoreSession();
+
+</script>
 
 </body>
 </html>
