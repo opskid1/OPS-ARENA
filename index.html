@@ -417,7 +417,59 @@
 
   </section>
 
+<!-- ADMIN TEAMS -->
 
+<section
+  class="container hidden"
+  id="teamsSection">
+
+  <div class="dashboard">
+
+    <div class="welcome">
+      <h2>⚽ Team Management</h2>
+
+      <p class="muted">
+        Add and manage teams for OPS ARENA.
+      </p>
+    </div>
+
+    <label for="teamName">
+      Team Name
+    </label>
+
+    <input
+      id="teamName"
+      type="text"
+      placeholder="Enter team name">
+
+    <label for="teamLogo">
+      Team Logo
+    </label>
+
+    <input
+      id="teamLogo"
+      type="file"
+      accept="image/*">
+
+    <button
+      class="primary full"
+      onclick="addTeam()">
+      ➕ Add Team
+    </button>
+
+    <div
+      class="message"
+      id="teamMessage">
+    </div>
+
+    <div
+      id="teamList"
+      style="margin-top:20px;">
+    </div>
+
+  </div>
+
+</section>
   <!-- DASHBOARD -->
 
   <section
@@ -1013,7 +1065,78 @@
 
 
   restoreSession();
+async function addTeam() {
 
+  const teamName =
+    document.getElementById("teamName").value.trim();
+
+  const message =
+    document.getElementById("teamMessage");
+
+  const token =
+    localStorage.getItem("ops_access_token");
+
+  if (!teamName) {
+    message.textContent = "Please enter a team name.";
+    message.style.display = "block";
+    return;
+  }
+
+  if (!token) {
+    message.textContent = "Please log in first.";
+    message.style.display = "block";
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/teams",
+      {
+        method: "POST",
+
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json",
+          "Prefer": "return=representation"
+        },
+
+        body: JSON.stringify({
+          name: teamName
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message ||
+        data.error_description ||
+        "Unable to add team."
+      );
+    }
+
+    message.textContent =
+      "✅ Team added successfully!";
+
+    message.style.display = "block";
+
+    document.getElementById("teamName").value = "";
+
+    console.log("Team created:", data);
+
+  } catch (error) {
+
+    console.error(error);
+
+    message.textContent =
+      "❌ " + error.message;
+
+    message.style.display = "block";
+  }
+  }
 </script>
 </body>
 </html>
