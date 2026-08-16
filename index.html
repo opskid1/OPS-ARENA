@@ -1201,7 +1201,63 @@ async function addTeam() {
     message.style.display = "block";
         }
     }
-    
+    async function loadTeams() {
+  const teamList = document.getElementById("teamList");
+  const token = localStorage.getItem("ops_access_token");
+
+  if (!token) {
+    teamList.innerHTML = "<p>Please log in first.</p>";
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/teams?select=*",
+      {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    const teams = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        teams.message ||
+        teams.error_description ||
+        "Unable to load teams."
+      );
+    }
+
+    teamList.innerHTML = "";
+
+    if (!teams.length) {
+      teamList.innerHTML = "<p>No teams yet.</p>";
+      return;
+    }
+
+    teams.forEach(team => {
+      const div = document.createElement("div");
+
+      div.style.padding = "12px";
+      div.style.marginBottom = "10px";
+      div.style.border = "1px solid #ddd";
+      div.style.borderRadius = "8px";
+
+      div.textContent = team.name;
+
+      teamList.appendChild(div);
+    });
+
+  } catch (error) {
+    console.error(error);
+    teamList.innerHTML = "❌ " + error.message;
+  }
+}
     function openTeams() {
   document.getElementById("dashboard").classList.add("hidden");
   document.getElementById("teamsSection").classList.remove("hidden");
@@ -1209,6 +1265,8 @@ async function addTeam() {
   document.getElementById("teamsSection").scrollIntoView({
     behavior: "smooth"
   });
+
+      loadTeams();
     }
   function openPlayers() {
   document.getElementById("dashboard").classList.add("hidden");
