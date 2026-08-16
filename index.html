@@ -491,12 +491,9 @@
 
       </div>
 
-
-      <div class="feature-list">
-
-        <div class="feature">
-          ⚽ <strong>Teams</strong>
-        </div>
+<div class="feature" onclick="openTeams()" style="cursor:pointer;">
+  ⚽ <strong>Teams</strong>
+</div>
 
         <div class="feature">
           👥 <strong>Players</strong>
@@ -1140,8 +1137,19 @@ async function addTeam() {
       "❌ " + error.message;
 
     message.style.display = "block";
-  }
-  }
+        }
+    }
+    
+    function openTeams() {
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("teamsSection").classList.remove("hidden");
+
+  document.getElementById("teamsSection").scrollIntoView({
+    behavior: "smooth"
+  });
+    }
+  
+  
 </script>
 </body>
 </html>
