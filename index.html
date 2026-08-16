@@ -1186,7 +1186,7 @@ async function addTeam() {
       "✅ Team added successfully!";
 
     message.style.display = "block";
-loadTeams();
+await loadTeams();
     document.getElementById("teamName").value = "";
 
     console.log("Team created:", data);
