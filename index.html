@@ -495,9 +495,9 @@
   ⚽ <strong>Teams</strong>
 </div>
 
-        <div class="feature">
-          👥 <strong>Players</strong>
-        </div>
+ <div class="feature" onclick="openPlayers()">
+  👥 <strong>Players</strong>
+</div>
 
         <div class="feature">
           🏆 <strong>Competitions</strong>
@@ -1148,7 +1148,12 @@ async function addTeam() {
     behavior: "smooth"
   });
     }
-  
+  function openPlayers() {
+  document.getElementById("dashboard").classList.remove("hidden");
+  document.getElementById("playersSection").scrollIntoView({
+    behavior: "smooth"
+  });
+    }
   
 </script>
 </body>
