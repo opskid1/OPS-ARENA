@@ -1239,7 +1239,18 @@ await loadTeams();
       teamList.innerHTML = "<p>No teams yet.</p>";
       return;
     }
+const playerTeam = document.getElementById("playerTeam");
 
+if (playerTeam) {
+    playerTeam.innerHTML = '<option value="">Select a team</option>';
+
+    teams.forEach(team => {
+        const option = document.createElement("option");
+        option.value = team.id;
+        option.textContent = team.name;
+        playerTeam.appendChild(option);
+    });
+}
     teams.forEach(team => {
       const div = document.createElement("div");
 
